@@ -6,6 +6,8 @@ TagManager:
   tags:
   - LeftWall
   - RightWall
+  - EmptyBalls
+  - Ball
   layers:
   - Default
   - TransparentFX

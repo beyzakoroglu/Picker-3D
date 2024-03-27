@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5742192131238621670}
   m_Layer: 0
   m_Name: Sphere_4
-  m_TagString: Untagged
+  m_TagString: EmptyBalls
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 2819393092768470936}
   m_Layer: 0
   m_Name: Sphere (17)
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,7 +125,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2819393092768470942}
   serializedVersion: 2
-  m_Mass: 0.0000001
+  m_Mass: 0.0001
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 1
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 3640706836861597356}
   m_Layer: 0
   m_Name: Sphere (18)
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,7 +237,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3531320315963928381}
   serializedVersion: 2
-  m_Mass: 0.0000001
+  m_Mass: 0.0001
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 1
@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 1071641862171249671}
   m_Layer: 0
   m_Name: Sphere (20)
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -349,7 +349,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7014079764739832348}
   serializedVersion: 2
-  m_Mass: 0.0000001
+  m_Mass: 0.0001
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 1
@@ -385,7 +385,7 @@ GameObject:
   - component: {fileID: 1181278828064705077}
   m_Layer: 0
   m_Name: Sphere (19)
-  m_TagString: Untagged
+  m_TagString: Ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -461,7 +461,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7090205238900646980}
   serializedVersion: 2
-  m_Mass: 0.0000001
+  m_Mass: 0.0001
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 1
