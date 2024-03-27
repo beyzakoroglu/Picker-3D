@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerInputController : MonoBehaviour
 {
     private float horizontalValue;
-    public float HorizontalValue { get { return horizontalValue; } }
+    public float HorizontalValue { get { return horizontalValue; } }   //encapsulation, property
 
     void Update()
     {
@@ -15,7 +15,7 @@ public class PlayerInputController : MonoBehaviour
         {
             float mouseX = Input.GetAxis("Mouse X");
             
-            if(Mathf.Abs(mouseX) < 0.01f){
+            if(Mathf.Abs(mouseX) < 0.01f) {
                 horizontalValue *= 0.9f;
             }
             else {

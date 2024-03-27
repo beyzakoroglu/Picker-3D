@@ -4,35 +4,30 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private List<GameObject> objectsInsideBasket = new List<GameObject>();
-
-
-
+    private List<GameObject> objectsInsideMagnet = new List<GameObject>();
     private void OnTriggerEnter(Collider other)
     {
-        if (!objectsInsideBasket.Contains(other.gameObject) && other.gameObject.CompareTag("Ball"))
+        if (!objectsInsideMagnet.Contains(other.gameObject) && other.gameObject.CompareTag("Ball"))
         {
-            objectsInsideBasket.Add(other.gameObject);
+            objectsInsideMagnet.Add(other.gameObject);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (objectsInsideBasket.Contains(other.gameObject))
+        if (objectsInsideMagnet.Contains(other.gameObject))
         {
-            objectsInsideBasket.Remove(other.gameObject);
+            objectsInsideMagnet.Remove(other.gameObject);
         }
     }
 
-
-
     public void ThrowObjects()
     {
-        foreach (GameObject obj in objectsInsideBasket)
+        foreach (GameObject obj in objectsInsideMagnet)
         {
             obj.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 40);
         }
-        objectsInsideBasket.Clear();
+        objectsInsideMagnet.Clear();
     }
 
 

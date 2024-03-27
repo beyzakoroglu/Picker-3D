@@ -42,13 +42,13 @@ public class PlayerMovementController : MonoBehaviour
 
         if (horizontalValue < 0 && _leftlimit.position.x < _leftWall.position.x)
         {
-            transform.position = new Vector3(transform.position.x + (_leftWall.position.x-_leftlimit.position.x), transform.position.y, transform.position.z);
-            return;
+            transform.position = new Vector3(transform.position.x + (_leftWall.position.x -_leftlimit.position.x), transform.position.y, transform.position.z);
+            return;   //if we are so left, we can't move anymore
         }
         else if (horizontalValue > 0 && _rightlimit.position.x > _rightWall.position.x)
         {
             transform.position = new Vector3(transform.position.x + (_rightWall.position.x - _rightlimit.position.x), transform.position.y, transform.position.z);
-            return;
+            return; //if we are so right, we can't move anymore
         }
         rb.velocity = new Vector3(horizontalValue * horizontalSpeed, rb.velocity.y, forwardSpeed);
         
