@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 2819393092768470938}
   - component: {fileID: 2819393092768470937}
   - component: {fileID: 2819393092768470936}
+  - component: {fileID: 7023719813270385055}
   m_Layer: 0
   m_Name: Sphere (17)
   m_TagString: Ball
@@ -146,6 +147,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Center: {x: 0, y: 0, z: -0.000015258789}
+--- !u!114 &7023719813270385055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2819393092768470942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb32ee097a707674890b12c05514e56a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3531320315963928381
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,6 +172,7 @@ GameObject:
   - component: {fileID: 6045891511058229705}
   - component: {fileID: 6629890602590410678}
   - component: {fileID: 3640706836861597356}
+  - component: {fileID: 7118104372753461014}
   m_Layer: 0
   m_Name: Sphere (18)
   m_TagString: Ball
@@ -258,6 +272,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Center: {x: 0, y: 0, z: -0.000015258789}
+--- !u!114 &7118104372753461014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3531320315963928381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb32ee097a707674890b12c05514e56a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7014079764739832348
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,6 +297,7 @@ GameObject:
   - component: {fileID: 2109235803674238666}
   - component: {fileID: 3392497479503950460}
   - component: {fileID: 1071641862171249671}
+  - component: {fileID: 1979675130302108460}
   m_Layer: 0
   m_Name: Sphere (20)
   m_TagString: Ball
@@ -370,6 +397,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Center: {x: 0, y: 0, z: -0.000015258789}
+--- !u!114 &1979675130302108460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7014079764739832348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb32ee097a707674890b12c05514e56a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7090205238900646980
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,6 +422,7 @@ GameObject:
   - component: {fileID: 1295694318700300557}
   - component: {fileID: 4075969560754216193}
   - component: {fileID: 1181278828064705077}
+  - component: {fileID: 2293032059106910382}
   m_Layer: 0
   m_Name: Sphere (19)
   m_TagString: Ball
@@ -482,3 +522,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Center: {x: 0, y: 0, z: -0.000015258789}
+--- !u!114 &2293032059106910382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7090205238900646980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb32ee097a707674890b12c05514e56a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

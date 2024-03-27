@@ -4,7 +4,7 @@ using UnityEngine;
 public class NominatorScript : MonoBehaviour
 {
     public float updateSpeed = 5f; // speed of the score update (if increases speed will also increases)
-    private float displayedScore = 0; 
+    private int displayedScore = 0; 
     public int maxScore = 3; 
     private int targetScore = 0; 
     private TMP_Text scoreText; 
@@ -22,9 +22,15 @@ public class NominatorScript : MonoBehaviour
         targetScore = box.getScoreCount();
 
         // slowly updates the displayed score to the target score
-        displayedScore = Mathf.Lerp(displayedScore, targetScore, updateSpeed * Time.deltaTime);
+        int interpolatedScore = IntLerp(displayedScore, targetScore, updateSpeed);
 
         // updates the score text
-        scoreText.text = $"{displayedScore} / {maxScore}";
+        scoreText.text = $"{interpolatedScore} / {maxScore}";
+    }
+
+    int IntLerp(int from, int to, float t)
+    {
+        float intResult = Mathf.Lerp(from, to, t);
+        return Mathf.RoundToInt(intResult);
     }
 }
