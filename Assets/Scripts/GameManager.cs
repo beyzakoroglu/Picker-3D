@@ -7,18 +7,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     private Canvas canvas;
 
-
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Destroy(this.gameObject);
-            return;
+    void Awake() {
+        if (instance != null && instance != this) {
+            Destroy(gameObject);
+        } else {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-
-        instance = this;
-        DontDestroyOnLoad(this.gameObject);
     }
 
     private void Start()

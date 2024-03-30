@@ -6,13 +6,11 @@ public class PlayerMovementController : MonoBehaviour
     private static PlayerMovementController instance;
     public static PlayerMovementController Instance { get { return instance; } }
 
-
-
     private PlayerInputController playerInputController;
     [SerializeField] private float forwardSpeed;
     [SerializeField] private float horizontalSpeed;
     [SerializeField] private float horizontalSpeedLimit;
-    private bool canMove = true;
+    private bool canMove = false;
 
     private Vector3 _leftlimit;
     private Vector3 _rightlimit;
@@ -36,7 +34,6 @@ public class PlayerMovementController : MonoBehaviour
     }
 */
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -76,7 +73,6 @@ public class PlayerMovementController : MonoBehaviour
         rb.velocity = new Vector3(horizontalValue * horizontalSpeed, rb.velocity.y, forwardSpeed);
         
     }
-
 
     public void SetCanMove(bool value) {
         Debug.Log("SetCanMove" + value);

@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,14 +11,12 @@ public class Box : MonoBehaviour
     // Score variables
     private int scoreCount = 0;
     private bool hasControlled = false; //to prevent multiple control calls
-    [SerializeField] private int scoreToWin;
-
+    [SerializeField] private int scoreToWin;   //constantslara koy her level için
 
 
     // Floor rising variables
-
     private Vector3 targetPosition; //target position of floor
-    private float moveSpeed = 1f; //move speed of the floor 
+    private float moveSpeed = 9f; //move speed of the floor 
     [SerializeField] private GameObject thefloor; //floor object
     private GameObject ground;
 
@@ -30,7 +27,7 @@ public class Box : MonoBehaviour
     private GameObject leftBarrier;
     private Vector3 leftOpenRotation = new Vector3(0, 0, 60); //for left barrier rotation
     private Vector3 rightOpenRotation = new Vector3(0, 0, -60); //for left barrier rotation
-    private float rotationSpeed = 1f; //rotation speed of the barriers
+    private float rotationSpeed = 5f; //rotation speed of the barriers
 
 
 
@@ -53,7 +50,7 @@ public class Box : MonoBehaviour
     {
         scoreCount++;
         if(!hasControlled){
-            Invoke("Control", 2.5f);
+            Invoke("Control", 1f);
             hasControlled = true;
         }
     }
@@ -79,7 +76,7 @@ public class Box : MonoBehaviour
 
         StartCoroutine(RiseNewFloor());
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         StartCoroutine(OpenBarriers());
 

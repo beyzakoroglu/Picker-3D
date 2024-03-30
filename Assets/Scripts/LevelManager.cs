@@ -5,7 +5,20 @@ public class LevelManager : MonoBehaviour
 {
     private int currentLevel;
     public int CurrentLevel { get => currentLevel; set => currentLevel = value; }
+    private bool gameStarted = false;
+    private PlayerMovementController playerMovementController;
+    [SerializeField] private GameObject player;
 
+    void Start() {
+        playerMovementController = player.GetComponent<PlayerMovementController>();
+    }
+    void Update() {
+        if (Input.GetMouseButtonDown(0) && !gameStarted)
+        {
+            StartGame();
+            gameStarted = true;
+        }
+    }
     public void LoadNextLevel()
     {
         int nextLevel = currentLevel + 3;
@@ -27,7 +40,7 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    public void OnStartButtonClicked()
+    /*public void OnStartButtonClicked()
     {
         Debug.Log("Start button clicked");
         GameManager.Instance.DeactivateMainMenu();
@@ -35,8 +48,19 @@ public class LevelManager : MonoBehaviour
         //SceneManager.LoadSceneAsync(0, LoadSceneMode.Additive);
         SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
         SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
-    }
+    }*/
 
+    void StartGame()
+    {
+        Debug.Log("Start button clicked");                      
+        GameManager.Instance.DeactivateMainMenu();
+        playerMovementController.SetCanMove(true);    //player can move 
+        currentLevel = 0;
+        //SceneManager.LoadSceneAsync(0, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
+
+    }
 
 
 }
