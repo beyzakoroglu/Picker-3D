@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Box : MonoBehaviour
 {
@@ -18,7 +17,8 @@ public class Box : MonoBehaviour
     private Vector3 targetPosition; //target position of floor
     private float moveSpeed = 9f; //move speed of the floor 
     [SerializeField] private GameObject thefloor; //floor object
-    private GameObject ground;
+    private bool hasFailed = false;
+    public bool HasFailed { get => hasFailed; set => hasFailed = value;}
 
 
 
@@ -42,13 +42,13 @@ public class Box : MonoBehaviour
         rightBarrier = box.transform.Find("Gate/RightGate").gameObject;
         leftBarrier = box.transform.Find("Gate/LeftGate").gameObject;        
         targetPosition = new Vector3(thefloor.transform.position.x, transform.parent.position.y, thefloor.transform.position.z); //target position of the floor
-
     }
 
 
-    public void incrementScoreCount()
+    public void incrementScoreCount(int score)
     {
-        scoreCount++;
+        scoreCount += score;
+        Debug.Log("incrementScoreCount: scoreCount=" + scoreCount);
         if(!hasControlled){
             Invoke("Control", 1f);
             hasControlled = true;
@@ -57,17 +57,21 @@ public class Box : MonoBehaviour
 
 
     private void Control(){
-        if(scoreCount >= scoreToWin)
+        Debug.Log(scoreCount + " balls");
+
+        if(scoreCount < scoreToWin) {
+            Debug.Log("You Lose!");
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            hasFailed = true;
+            GameManager.Instance.ActivateFailedScreen();
+        }
+
+        else if(scoreCount >= scoreToWin)
         {
             Debug.Log("You Win!");
             StartCoroutine(SetNewLevel());
             //kapı açılma 
         }   
-        else
-        {
-            Debug.Log("You Lose!");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
     }
     
     // rises the floor and opens the barriers
@@ -84,8 +88,6 @@ public class Box : MonoBehaviour
         playerMovementController.SetCanMove(true);
     }
 
-
-
     private IEnumerator RiseNewFloor(){
 
 
@@ -101,7 +103,6 @@ public class Box : MonoBehaviour
 
     private IEnumerator OpenBarriers(){
 
-
         DeactivePreventer();
         while (Quaternion.Angle(leftBarrier.transform.rotation, Quaternion.Euler(leftOpenRotation)) > 1.0f && Quaternion.Angle(rightBarrier.transform.rotation, Quaternion.Euler(rightOpenRotation)) > 1.0f)
         {
@@ -115,8 +116,6 @@ public class Box : MonoBehaviour
         // incase a small difference remains
         leftBarrier.transform.rotation = Quaternion.Euler(leftOpenRotation);
         rightBarrier.transform.rotation = Quaternion.Euler(rightOpenRotation);
-
-
 
     }
 

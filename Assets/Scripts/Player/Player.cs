@@ -5,14 +5,10 @@ public class Player : MonoBehaviour
 {
     private List<GameObject> objectsInsideMagnet = new List<GameObject>();
 
-
-
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);   
     }
-
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -32,13 +28,17 @@ public class Player : MonoBehaviour
 
     public void ThrowObjects()
     {
+        if(objectsInsideMagnet.Count == 0)
+        {   
+            Debug.Log("No objects to throw");
+            //return;
+        }
+        
         foreach (GameObject obj in objectsInsideMagnet)
         {
             obj.GetComponent<Element>().Throw();
         }
         objectsInsideMagnet.Clear();
     }
-
-
 
 }

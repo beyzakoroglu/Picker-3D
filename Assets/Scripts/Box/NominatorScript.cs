@@ -5,11 +5,11 @@ public class NominatorScript : MonoBehaviour
 {
     public float updateSpeed = 5f; // speed of the score update (if increases speed will also increases)
     private int displayedScore = 0; 
-    
     private int targetScore = 0; 
     private TMP_Text scoreText; 
-    public Box box;
     private int denominator;
+    public Box box;
+
 
     void Start()
     {

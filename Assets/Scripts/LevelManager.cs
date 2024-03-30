@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
     private bool gameStarted = false;
     private PlayerMovementController playerMovementController;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject box;
 
     void Start() {
         playerMovementController = player.GetComponent<PlayerMovementController>();
@@ -18,6 +19,12 @@ public class LevelManager : MonoBehaviour
             StartGame();
             gameStarted = true;
         }
+        if(Input.GetMouseButtonDown(0) && box.GetComponent<Box>().HasFailed){
+            RestartGame();
+            box.GetComponent<Box>().HasFailed = false;
+
+        }
+
     }
     public void LoadNextLevel()
     {
@@ -39,17 +46,6 @@ public class LevelManager : MonoBehaviour
         SceneManager.UnloadSceneAsync(currentLevel - 2);
     }
 
-
-    /*public void OnStartButtonClicked()
-    {
-        Debug.Log("Start button clicked");
-        GameManager.Instance.DeactivateMainMenu();
-        currentLevel = 0;
-        //SceneManager.LoadSceneAsync(0, LoadSceneMode.Additive);
-        SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
-        SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
-    }*/
-
     void StartGame()
     {
         Debug.Log("Start button clicked");                      
@@ -59,6 +55,30 @@ public class LevelManager : MonoBehaviour
         //SceneManager.LoadSceneAsync(0, LoadSceneMode.Additive);
         SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
         SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
+
+    }
+
+    void RestartGame()
+    {
+        Debug.Log("Restarting Game");
+        GameManager.Instance.DeactivateFailedScreen();
+        playerMovementController.SetCanMove(true);    //player can move 
+        currentLevel -= 1;
+        Debug.Log("Current Level: " + currentLevel);
+
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+            if (scene.isLoaded)
+            {
+                SceneManager.UnloadSceneAsync(scene);
+            }
+        }
+
+        SceneManager.LoadSceneAsync(currentLevel, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(currentLevel + 1, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(currentLevel + 2, LoadSceneMode.Additive);
+        
 
     }
 

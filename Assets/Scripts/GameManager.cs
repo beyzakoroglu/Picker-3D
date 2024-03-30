@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
     public static GameManager Instance { get => instance; }
     [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject failedScreen;
     private Canvas canvas;
 
     void Awake() {
@@ -19,7 +20,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         canvas = FindObjectOfType<Canvas>();
-        //mainMenu = canvas.transform.Find("Manager/Canvas/MainMenu/StartButton").gameObject;
     }
 
     public void ActivateMainMenu(){
@@ -29,4 +29,14 @@ public class GameManager : MonoBehaviour
     public void DeactivateMainMenu(){
         mainMenu.SetActive(false);
     }
+
+    public void ActivateFailedScreen(){
+        failedScreen.SetActive(true);
+    }
+
+    public void DeactivateFailedScreen(){
+        failedScreen.SetActive(false);
+    }
+
+
 }
