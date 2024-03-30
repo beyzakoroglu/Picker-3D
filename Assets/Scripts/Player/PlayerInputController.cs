@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class PlayerInputController : MonoBehaviour
 {
+    private static PlayerInputController instance;
+    public static PlayerInputController Instance { get { return instance; } }   
+
+
     private float horizontalValue;
     public float HorizontalValue { get { return horizontalValue; } }   //encapsulation, property
 

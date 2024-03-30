@@ -5,6 +5,16 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private List<GameObject> objectsInsideMagnet = new List<GameObject>();
+
+
+
+    void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);   
+    }
+
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (!objectsInsideMagnet.Contains(other.gameObject) && other.gameObject.CompareTag("Ball"))
@@ -25,7 +35,7 @@ public class Player : MonoBehaviour
     {
         foreach (GameObject obj in objectsInsideMagnet)
         {
-            obj.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 40);
+            obj.GetComponent<Element>().Throw();
         }
         objectsInsideMagnet.Clear();
     }
