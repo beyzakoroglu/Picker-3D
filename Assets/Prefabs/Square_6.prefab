@@ -91,6 +91,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sphere (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1770798610089732811, guid: a6eab16b689f1394ea0d780e812fc270, type: 3}
+      propertyPath: m_TagString
+      value: Element
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6eab16b689f1394ea0d780e812fc270, type: 3}
 --- !u!4 &890649383796398173 stripped
@@ -152,6 +156,10 @@ PrefabInstance:
     - target: {fileID: 1770798610089732811, guid: a6eab16b689f1394ea0d780e812fc270, type: 3}
       propertyPath: m_Name
       value: Sphere (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770798610089732811, guid: a6eab16b689f1394ea0d780e812fc270, type: 3}
+      propertyPath: m_TagString
+      value: Element
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6eab16b689f1394ea0d780e812fc270, type: 3}
@@ -215,6 +223,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sphere (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 1770798610089732811, guid: a6eab16b689f1394ea0d780e812fc270, type: 3}
+      propertyPath: m_TagString
+      value: Element
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6eab16b689f1394ea0d780e812fc270, type: 3}
 --- !u!4 &4440323692449724655 stripped
@@ -276,6 +288,10 @@ PrefabInstance:
     - target: {fileID: 1770798610089732811, guid: a6eab16b689f1394ea0d780e812fc270, type: 3}
       propertyPath: m_Name
       value: Sphere
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770798610089732811, guid: a6eab16b689f1394ea0d780e812fc270, type: 3}
+      propertyPath: m_TagString
+      value: Element
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6eab16b689f1394ea0d780e812fc270, type: 3}
@@ -339,6 +355,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sphere (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1770798610089732811, guid: a6eab16b689f1394ea0d780e812fc270, type: 3}
+      propertyPath: m_TagString
+      value: Element
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6eab16b689f1394ea0d780e812fc270, type: 3}
 --- !u!4 &6501191893054433176 stripped
@@ -400,6 +420,10 @@ PrefabInstance:
     - target: {fileID: 1770798610089732811, guid: a6eab16b689f1394ea0d780e812fc270, type: 3}
       propertyPath: m_Name
       value: Sphere (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770798610089732811, guid: a6eab16b689f1394ea0d780e812fc270, type: 3}
+      propertyPath: m_TagString
+      value: Element
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6eab16b689f1394ea0d780e812fc270, type: 3}

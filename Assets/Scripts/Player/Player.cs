@@ -3,16 +3,31 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private static Player player;
+    public static Player Instance { get => player; }
+
+
     private List<GameObject> objectsInsideMagnet = new List<GameObject>();
 
-    void Start()
+
+
+    void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);   
+        if (player != null)
+        {
+            Destroy(gameObject);
+        }
+        
+        player = this;
+        DontDestroyOnLoad(gameObject);
+    
     }
+
+
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!objectsInsideMagnet.Contains(other.gameObject) && other.gameObject.CompareTag("Ball"))
+        if (!objectsInsideMagnet.Contains(other.gameObject) && other.gameObject.CompareTag(Constants.Tags.ELEMENT_TAG))
         {
             objectsInsideMagnet.Add(other.gameObject);
         }
@@ -28,17 +43,22 @@ public class Player : MonoBehaviour
 
     public void ThrowObjects()
     {
-        if(objectsInsideMagnet.Count == 0)
-        {   
-            Debug.Log("No objects to throw");
-            //return;
-        }
-        
         foreach (GameObject obj in objectsInsideMagnet)
         {
             obj.GetComponent<Element>().Throw();
         }
         objectsInsideMagnet.Clear();
+    }
+
+    public bool HasElements()
+    {
+        return objectsInsideMagnet.Count != 0;
+    }
+
+    public void RestartPlayer()
+    {
+        objectsInsideMagnet.Clear();
+        //gameObject.transform.position = new Vector3(); // burayı grounda bağlı bişe yapcaz;
     }
 
 }

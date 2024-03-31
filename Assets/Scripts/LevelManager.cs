@@ -3,83 +3,110 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+    private static LevelManager instance;
+    public static LevelManager Instance { get => instance; }
+
+
     private int currentLevel;
     public int CurrentLevel { get => currentLevel; set => currentLevel = value; }
-    private bool gameStarted = false;
+
+    private int currentParkour; // start from 1
+    public int CurrentParkour { get => currentParkour;}
+    private int targetParkour; // min value is 1 ----- it is always 3 for now
+
+
+
+
     private PlayerMovementController playerMovementController;
-    [SerializeField] private GameObject player;
-    [SerializeField] private GameObject box;
+    private GameObject player;
+  
+
+    void Awake() {
+        if (instance != null && instance != this) {
+            Destroy(gameObject);
+        } 
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+        
+    }
 
     void Start() {
-        playerMovementController = player.GetComponent<PlayerMovementController>();
+        playerMovementController = PlayerMovementController.Instance;
+        InitVariables();
     }
-    void Update() {
-        if (Input.GetMouseButtonDown(0) && !gameStarted)
-        {
-            StartGame();
-            gameStarted = true;
-        }
-        if(Input.GetMouseButtonDown(0) && box.GetComponent<Box>().HasFailed){
-            RestartGame();
-            box.GetComponent<Box>().HasFailed = false;
 
-        }
-
+    private void InitVariables()
+    {
+        currentLevel = Constants.LEVEL_START_INDEX;
+        currentParkour = Constants.PARKOUR_START_INDEX;
+        targetParkour = Constants.PARKOUR_TARGET_INDEX;
     }
+
     public void LoadNextLevel()
     {
-        int nextLevel = currentLevel + 3;
-        if (nextLevel < SceneManager.sceneCountInBuildSettings)
-        {
-            SceneManager.LoadSceneAsync(nextLevel, LoadSceneMode.Additive);
-            Debug.Log("Loading level " + nextLevel);
-        } else {
-            Debug.Log("No more levels to load.");
-        }
-
         currentLevel++;
+        if (SceneManager.sceneCountInBuildSettings > currentLevel) // 433 - 1 = 432 + 1 = 433 BURAI kontrol etmedim
+        {
+            SceneManager.LoadSceneAsync(currentLevel, LoadSceneMode.Additive);
+        }
+        else
+        {
+            Debug.Log("Game Completed");
+            GameManager.Instance.ActivateWinUI();
+        }
+        
     }
 
     public void UnloadPreviousLevel()
     {
-        Debug.Log("Unloading level " + (currentLevel - 2));
-        SceneManager.UnloadSceneAsync(currentLevel - 2);
+        SceneManager.UnloadSceneAsync(currentLevel - 1);
     }
 
-    void StartGame()
+
+    public void RestartLevel()
     {
-        Debug.Log("Start button clicked");                      
-        GameManager.Instance.DeactivateMainMenu();
-        playerMovementController.SetCanMove(true);    //player can move 
-        currentLevel = 0;
-        //SceneManager.LoadSceneAsync(0, LoadSceneMode.Additive);
-        SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
-        SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
-
-    }
-
-    void RestartGame()
-    {
-        Debug.Log("Restarting Game");
-        GameManager.Instance.DeactivateFailedScreen();
-        playerMovementController.SetCanMove(true);    //player can move 
-        currentLevel -= 1;
-        Debug.Log("Current Level: " + currentLevel);
-
-        for (int i = 0; i < SceneManager.sceneCount; i++)
-        {
-            Scene scene = SceneManager.GetSceneAt(i);
-            if (scene.isLoaded)
-            {
-                SceneManager.UnloadSceneAsync(scene);
-            }
-        }
-
+        SceneManager.UnloadSceneAsync(currentLevel);
         SceneManager.LoadSceneAsync(currentLevel, LoadSceneMode.Additive);
-        SceneManager.LoadSceneAsync(currentLevel + 1, LoadSceneMode.Additive);
-        SceneManager.LoadSceneAsync(currentLevel + 2, LoadSceneMode.Additive);
-        
+    }
 
+
+
+
+    public bool TryWinLevel()
+    {
+        if (currentParkour == targetParkour)
+        {
+            WinLevel();
+            return true;
+        }
+        return false;
+    }
+
+    private void WinLevel()
+    {
+        //playerMovementController.SetCanMove(false);
+        // yeni levelı yükle cartcurt
+        Debug.Log("You Win!");
+        Debug.Log("Loading Next Level");
+
+        LoadNextLevel();
+    }
+
+
+    public void LoseLevel()
+    {
+        //playerMovementController.SetCanMove(false);
+        GameManager.Instance.ActivateLoseUI();
+    }
+
+    public void IncrementCurrentParkour()
+    {
+        currentParkour++;
+    }
+
+    public void SetTargetParkour(int target) // 433 şimdilik kimse kullanmıcak
+    {
+        targetParkour = target;
     }
 
 

@@ -17,7 +17,7 @@ public class Element : MonoBehaviour
 
     public void ExplodeInTime()
     {
-        Invoke("Explode", 0.25f);
+        Invoke("Explode", 1.25f);
     }
 
     private void Explode()

@@ -10,7 +10,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField] private float forwardSpeed;
     [SerializeField] private float horizontalSpeed;
     [SerializeField] private float horizontalSpeedLimit;
-    private bool canMove = false;
+    private bool canMove = true;
 
     private Vector3 _leftlimit;
     private Vector3 _rightlimit;
@@ -20,26 +20,23 @@ public class PlayerMovementController : MonoBehaviour
     private Rigidbody rb;
     public float newPositionX;
 
-/*
+
     private void Awake()    //singleton pattern
     {
         if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
         }
-        else
-        {
-            instance = this;
-        }
+    
+        instance = this;
+        
     }
-*/
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerInputController =  GetComponent<PlayerInputController>();
-
-
 
         _leftlimit = transform.Find("leftlimit").position;
         _rightlimit = transform.Find("rightlimit").position;
