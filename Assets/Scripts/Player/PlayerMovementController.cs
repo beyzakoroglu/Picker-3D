@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
     private PlayerInputController playerInputController;
     [SerializeField] private float forwardSpeed;
+    public float ForwardSpeed { get { return forwardSpeed; } set { forwardSpeed = value; } } 
     [SerializeField] private float horizontalSpeed;
     [SerializeField] private float horizontalSpeedLimit;
     private bool canMove = true;

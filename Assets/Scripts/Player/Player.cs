@@ -83,8 +83,6 @@ public class Player : MonoBehaviour
 
     public void Stop()
     {
-        Debug.Log("Player stopped");
-        Debug.Log(transform.position);
         PlayerMovementController.SetCanMove(false);
     }
 

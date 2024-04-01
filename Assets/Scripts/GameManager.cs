@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     private bool isMainMenuActive;
     public GameObject winUI;
     public GameObject loseUI;
+    public GameObject congratsUI;
 
     void Awake() {
         if (instance != null && instance != this) {
@@ -48,20 +49,17 @@ public class GameManager : MonoBehaviour
 
         DeactivateLoseUI();
         DeactivateWinUI();
+        DeactivateCongratsUI();
         ActivateMainMenu();
-
-
+        
     }
-
-
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("Scene Loaded: " + scene.name);
         InitializaGame();
+        DeactivateMainMenu();
     }
-
-
 
     void Update(){
     
@@ -105,13 +103,19 @@ public class GameManager : MonoBehaviour
         loseUI.SetActive(false);
     }
 
+    public void ActivateCongratsUI()
+    {
+        congratsUI.SetActive(true);
+    }
+
+    public void DeactivateCongratsUI()
+    {
+        congratsUI.SetActive(false);
+    }
+
     public void RestartLevel()
     {
         Debug.Log("Restarting Level");
-        // first you should restart the level, then the player
-        // because previous level's elements should be deleted
-        // so player could find the new elements start trigger position
-        // 433 emin deilim belki gerek bile yoktur bu dedigime
 
         LevelManager.Instance.RestartLevel();
         Player.Instance.RestartPlayer();
@@ -119,12 +123,18 @@ public class GameManager : MonoBehaviour
         InitializaGame();
     }
 
-
-    private void DeactiveAllUI()
+    public void LevelWon()
     {
+        Debug.Log("Level Won");
+        LevelManager.Instance.CurrentLevel++;
+        ActivateWinUI();
+    }
+
+    public void ContinueToGame()
+    {
+        Player.Instance.PlayerMovementController.SetCanMove(true);
+        InitializaGame();
         DeactivateMainMenu();
-        DeactivateWinUI();
-        DeactivateLoseUI();
     }
 
     private bool IsMouseOverCanvas(Canvas canvas)

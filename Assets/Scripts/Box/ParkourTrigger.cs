@@ -6,7 +6,6 @@ public class ParkourTrigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player Arrived");
             LevelManager levelManager = LevelManager.Instance;
             Player.Instance.Stop();
             
@@ -17,7 +16,6 @@ public class ParkourTrigger : MonoBehaviour
                 LevelManager.Instance.LoseLevel();
             } 
             else {
-                Debug.Log("You Win the level: " + levelManager.CurrentLevel + " parkour: " + levelManager.CurrentParkour);
                 other.gameObject.GetComponent<Player>().ThrowObjects();
             }
 

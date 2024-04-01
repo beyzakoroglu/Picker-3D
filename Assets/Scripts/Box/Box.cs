@@ -48,6 +48,7 @@ public class Box : MonoBehaviour
             Invoke("Control", 2f);
             hasControlled = true;
         }
+        levelManager.IncrementElementCount();
     }
 
 
@@ -64,13 +65,10 @@ public class Box : MonoBehaviour
 
     private void WinParkour(){
         Debug.Log("You Win the parkour!");
-        StartCoroutine(EnterNextParkour());
-        
-        if(!levelManager.TryWinLevel()){
-            levelManager.IncrementCurrentParkour();
-        }
-        
+        StartCoroutine(EnterNextParkour());      
     }
+
+
 
     private void LoseParkour(){
         Debug.Log("You Lose!");
@@ -86,12 +84,12 @@ public class Box : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         StartCoroutine(OpenBarriers());        
-        GameManager.Instance.ActivateWinUI();
+        GameManager.Instance.ActivateCongratsUI();
 
         yield return new WaitForSeconds(1.5f);
         
         playerMovementController.SetCanMove(true);
-        GameManager.Instance.DeactivateWinUI();
+        GameManager.Instance.DeactivateCongratsUI();
         
 
     }

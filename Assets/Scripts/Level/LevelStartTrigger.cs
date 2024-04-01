@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class LevelStartTrigger : MonoBehaviour
 {
+    LevelManager levelManager;
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            LevelManager levelManager = LevelManager.Instance;
+            Debug.Log("Level Start Triggered");
+            levelManager = LevelManager.Instance;
             levelManager.UnloadPreviousLevel();
+            levelManager.LoadNextLevel();
+            levelManager.ElementGoal = GameObject.FindGameObjectsWithTag("Element").Length;
         }
     }
+
 }
