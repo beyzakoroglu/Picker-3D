@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,11 +25,46 @@ public class GameManager : MonoBehaviour
     }
 
     void Start() {
-        canvas = FindObjectOfType<Canvas>(); // 433 tek bir canvas oldugu varsayımı
-        ActivateMainMenu();
+        Debug.Log("GameManager Started");
+        InitializaGame();
+
+        SceneManager.sceneLoaded += OnSceneLoaded;   // observer pattern abone-izleyici
+                                            //scene yüklendiğinde OnSceneLoaded fonksiyonunu çalıştır
+                                            //bulması daha kolay
+
+    }
+    
+
+    private void InitVariables()
+    {
+        canvas = FindObjectOfType<Canvas>();
     }
 
+
+
+    private void InitializaGame()
+    {
+        InitVariables();
+
+        DeactivateLoseUI();
+        DeactivateWinUI();
+        ActivateMainMenu();
+
+
+    }
+
+
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("Scene Loaded: " + scene.name);
+        InitializaGame();
+    }
+
+
+
     void Update(){
+    
         if(isMainMenuActive)
         { 
             if(Input.GetMouseButtonDown(0) && IsMouseOverCanvas(canvas)){ // 433 sağdaki boş
@@ -72,11 +108,15 @@ public class GameManager : MonoBehaviour
     public void RestartLevel()
     {
         Debug.Log("Restarting Level");
-        Player.Instance.RestartPlayer();
-        DeactivateLoseUI();
-        DeactivateWinUI();
-        ActivateMainMenu();
+        // first you should restart the level, then the player
+        // because previous level's elements should be deleted
+        // so player could find the new elements start trigger position
+        // 433 emin deilim belki gerek bile yoktur bu dedigime
+
         LevelManager.Instance.RestartLevel();
+        Player.Instance.RestartPlayer();
+        
+        InitializaGame();
     }
 
 

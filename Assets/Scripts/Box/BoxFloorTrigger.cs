@@ -6,6 +6,7 @@ public class BoxFloorTrigger : MonoBehaviour
 
     private List<Element> objectsInsideBox = new List<Element>();
     public Box box;
+
     
     //counts the elements inside the box and expledes them
     void OnTriggerEnter(Collider other)

@@ -27,11 +27,10 @@ public class LevelManager : MonoBehaviour
         } 
         instance = this;
         DontDestroyOnLoad(gameObject);
-        
     }
 
     void Start() {
-        playerMovementController = PlayerMovementController.Instance;
+        playerMovementController = Player.Instance.PlayerMovementController;
         InitVariables();
     }
 
@@ -59,14 +58,14 @@ public class LevelManager : MonoBehaviour
 
     public void UnloadPreviousLevel()
     {
-        SceneManager.UnloadSceneAsync(currentLevel - 1);
+        if (currentLevel > Constants.LEVEL_START_INDEX)
+            SceneManager.UnloadSceneAsync(currentLevel - 1);
     }
 
 
     public void RestartLevel()
     {
-        SceneManager.UnloadSceneAsync(currentLevel);
-        SceneManager.LoadSceneAsync(currentLevel, LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync(currentLevel);
     }
 
 
@@ -107,6 +106,15 @@ public class LevelManager : MonoBehaviour
     public void SetTargetParkour(int target) // 433 şimdilik kimse kullanmıcak
     {
         targetParkour = target;
+    }
+
+    public LevelStartTrigger GetLevelStartTrigger()
+    {
+        // unless the moment of taptap, there will be only 1 level start trigger
+        // this can cause problem in the future
+        // so you shouldn't use this method in tap tap moment
+        
+        return GameObject.FindObjectOfType<LevelStartTrigger>();
     }
 
 

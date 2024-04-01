@@ -6,8 +6,10 @@ public class ParkourTrigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            Debug.Log("Player Arrived");
             LevelManager levelManager = LevelManager.Instance;
-            PlayerMovementController.Instance.SetCanMove(false);
+            Player.Instance.Stop();
+            
 
 
             if(!Player.Instance.HasElements())

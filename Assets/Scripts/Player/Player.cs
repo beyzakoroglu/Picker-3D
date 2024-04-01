@@ -1,10 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     private static Player player;
     public static Player Instance { get => player; }
+
+
+    private static PlayerInputController playerInputController;
+    private static PlayerMovementController playerMovementController;
+    public PlayerInputController PlayerInputController { get => playerInputController; private set => playerInputController = value; }
+    public PlayerMovementController PlayerMovementController { get => playerMovementController; private set => playerMovementController = value; }
 
 
     private List<GameObject> objectsInsideMagnet = new List<GameObject>();
@@ -15,14 +22,25 @@ public class Player : MonoBehaviour
     {
         if (player != null)
         {
+            Debug.Log("Player already exists");
             Destroy(gameObject);
         }
         
         player = this;
+        PlayerInputController = GetComponent<PlayerInputController>();
+        PlayerMovementController = GetComponent<PlayerMovementController>();
+        SceneManager.sceneLoaded += OnSceneLoaded;
         DontDestroyOnLoad(gameObject);
     
     }
 
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        player = FindObjectOfType<Player>();
+        PlayerInputController = player.GetComponent<PlayerInputController>();
+        PlayerMovementController = player.GetComponent<PlayerMovementController>();
+    }
 
 
     private void OnTriggerEnter(Collider other)
@@ -58,7 +76,16 @@ public class Player : MonoBehaviour
     public void RestartPlayer()
     {
         objectsInsideMagnet.Clear();
-        //gameObject.transform.position = new Vector3(); // burayı grounda bağlı bişe yapcaz;
+        Transform levelStart = LevelManager.Instance.GetLevelStartTrigger().transform;
+        transform.position = new Vector3(transform.position.x, transform.position.y, levelStart.position.z);
+        PlayerMovementController.SetCanMove(true);
+    }
+
+    public void Stop()
+    {
+        Debug.Log("Player stopped");
+        Debug.Log(transform.position);
+        PlayerMovementController.SetCanMove(false);
     }
 
 }
