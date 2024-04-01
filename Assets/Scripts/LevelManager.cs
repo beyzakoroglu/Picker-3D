@@ -60,14 +60,16 @@ public class LevelManager : MonoBehaviour
 
     public void UnloadPreviousLevel()
     {
-        if (currentLevel > Constants.LEVEL_START_INDEX)
+        if (currentLevel >= Constants.LEVEL_START_INDEX + 1){
             SceneManager.UnloadSceneAsync(GetSceneIndex(currentLevel - 1));
+        }
     }
 
 
     public void RestartLevel()
     {
         SceneManager.LoadSceneAsync(GetSceneIndex(currentLevel));
+        currentParkour = Constants.PARKOUR_START_INDEX;
     }
 
 

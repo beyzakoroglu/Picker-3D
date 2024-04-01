@@ -59,8 +59,6 @@ public class PlayerMovementController : MonoBehaviour
 
     public void SetCanMove(bool value) {
         canMove = value;
-        Debug.Log("canMove: " + canMove);
-        Debug.Log("rb: " + rb);
         rb = GetComponent<Rigidbody>();
         if (!canMove) {
             rb.velocity = Vector3.zero;
