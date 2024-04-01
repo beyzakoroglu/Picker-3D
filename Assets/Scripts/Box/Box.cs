@@ -64,9 +64,11 @@ public class Box : MonoBehaviour
 
     private void WinParkour(){
         Debug.Log("You Win the parkour!");
-        levelManager.TryWinLevel();
         StartCoroutine(EnterNextParkour());
-        levelManager.IncrementCurrentParkour();
+        
+        if(!levelManager.TryWinLevel()){
+            levelManager.IncrementCurrentParkour();
+        }
         
     }
 
@@ -79,7 +81,6 @@ public class Box : MonoBehaviour
     // rises the floor and opens the barriers
     private IEnumerator EnterNextParkour() 
     {
-
         StartCoroutine(RiseNewFloor());
 
         yield return new WaitForSeconds(1f);
@@ -91,6 +92,7 @@ public class Box : MonoBehaviour
         
         playerMovementController.SetCanMove(true);
         GameManager.Instance.DeactivateWinUI();
+        
 
     }
 

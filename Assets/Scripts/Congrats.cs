@@ -11,13 +11,10 @@ public class Congrats : MonoBehaviour
     void Awake()
     {
         congratsText = GetComponentInChildren<TextMeshProUGUI>();
-        Debug.Log("Congrats started");
-        Debug.Log(congratsText);
     }
 
     void OnEnable()
     {
-        Debug.Log("Congrats enabled");
         congratsText.text = GetRandomCongrats();
     }
 

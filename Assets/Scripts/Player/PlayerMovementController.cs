@@ -15,7 +15,6 @@ public class PlayerMovementController : MonoBehaviour
     private Vector3 _leftWall;
     private Vector3 _rightWall;
     private Rigidbody rb;
-    public float newPositionX;
 
 
 
@@ -43,7 +42,7 @@ public class PlayerMovementController : MonoBehaviour
     private void SetPlayerHorizontalMovement() {
         float horizontalValue = playerInputController.HorizontalValue;
 
-        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, forwardSpeed);
+        rb.velocity = new Vector3(rb.velocity.x, 0, forwardSpeed);
         if (horizontalValue < 0 && _leftlimit.position.x < _leftWall.x)
         {
             transform.position = new Vector3(transform.position.x + (_leftWall.x -_leftlimit.position.x), transform.position.y, transform.position.z);
@@ -54,7 +53,7 @@ public class PlayerMovementController : MonoBehaviour
             transform.position = new Vector3(transform.position.x + (_rightWall.x - _rightlimit.position.x), transform.position.y, transform.position.z);
             return; //if we are so right, we can't move anymore
         }
-        rb.velocity = new Vector3(horizontalValue * horizontalSpeed, rb.velocity.y, forwardSpeed);
+        rb.velocity = new Vector3(horizontalValue * horizontalSpeed, 0, forwardSpeed);
         
     }
 

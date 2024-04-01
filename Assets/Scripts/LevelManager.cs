@@ -44,28 +44,30 @@ public class LevelManager : MonoBehaviour
     public void LoadNextLevel()
     {
         currentLevel++;
-        if (SceneManager.sceneCountInBuildSettings > currentLevel) // 433 - 1 = 432 + 1 = 433 BURAI kontrol etmedim
+        if (SceneManager.sceneCountInBuildSettings >= currentLevel) // 433 - 1 = 432 + 1 = 433 BURAI kontrol etmedim
         {
-            SceneManager.LoadSceneAsync(currentLevel, LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync(GetSceneIndex(currentLevel), LoadSceneMode.Additive);
         }
         else
         {
             Debug.Log("Game Completed");
             GameManager.Instance.ActivateWinUI();
         }
+
+        
         
     }
 
     public void UnloadPreviousLevel()
     {
         if (currentLevel > Constants.LEVEL_START_INDEX)
-            SceneManager.UnloadSceneAsync(currentLevel - 1);
+            SceneManager.UnloadSceneAsync(GetSceneIndex(currentLevel - 1));
     }
 
 
     public void RestartLevel()
     {
-        SceneManager.LoadSceneAsync(currentLevel);
+        SceneManager.LoadSceneAsync(GetSceneIndex(currentLevel));
     }
 
 
@@ -73,21 +75,22 @@ public class LevelManager : MonoBehaviour
 
     public bool TryWinLevel()
     {
+        Debug.Log("Trying to win level");
+        Debug.Log("Current Parkour: " + currentParkour + " Target Parkour: " + targetParkour);  
         if (currentParkour == targetParkour)
         {
             WinLevel();
+            ResetCurrentParkour();
             return true;
         }
         return false;
     }
 
+
+
     private void WinLevel()
     {
-        //playerMovementController.SetCanMove(false);
-        // yeni levelı yükle cartcurt
-        Debug.Log("You Win!");
         Debug.Log("Loading Next Level");
-
         LoadNextLevel();
     }
 
@@ -100,6 +103,7 @@ public class LevelManager : MonoBehaviour
 
     public void IncrementCurrentParkour()
     {
+        Debug.Log("Incrementing Parkour");
         currentParkour++;
     }
 
@@ -117,5 +121,11 @@ public class LevelManager : MonoBehaviour
         return GameObject.FindObjectOfType<LevelStartTrigger>();
     }
 
+    private int GetSceneIndex(int levelIndex) => levelIndex - 1;
+
+    public void ResetCurrentParkour()
+    {
+        currentParkour = Constants.PARKOUR_START_INDEX;
+    }
 
 }
