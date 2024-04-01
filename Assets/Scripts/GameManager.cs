@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
     }
 
     void Start() {
-        Debug.Log("GameManager Started");
         InitializaGame();
 
         SceneManager.sceneLoaded += OnSceneLoaded;   // observer pattern abone-izleyici
@@ -56,7 +55,6 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Scene Loaded: " + scene.name);
         InitializaGame();
         DeactivateMainMenu();
     }

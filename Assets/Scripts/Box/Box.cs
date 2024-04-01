@@ -65,10 +65,10 @@ public class Box : MonoBehaviour
 
     private void WinParkour(){
         Debug.Log("You Win the parkour!");
-        StartCoroutine(EnterNextParkour());      
+        StartCoroutine(EnterNextParkour());
+
+        
     }
-
-
 
     private void LoseParkour(){
         Debug.Log("You Lose!");

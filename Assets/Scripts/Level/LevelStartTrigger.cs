@@ -10,11 +10,10 @@ public class LevelStartTrigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Level Start Triggered");
             levelManager = LevelManager.Instance;
             levelManager.UnloadPreviousLevel();
             levelManager.LoadNextLevel();
-            levelManager.ElementGoal = GameObject.FindGameObjectsWithTag("Element").Length;
+            levelManager.SetElementGoal(GameObject.FindGameObjectsWithTag("Element").Length);
         }
     }
 

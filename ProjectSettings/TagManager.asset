@@ -12,6 +12,7 @@ TagManager:
   - MainLight
   - Element
   - Parkour
+  - ElementSlider
   layers:
   - Default
   - TransparentFX

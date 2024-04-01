@@ -14,6 +14,13 @@ public class ParticleEffect : MonoBehaviour
                 rb.AddForce(Vector3.up * 30f, ForceMode.Impulse);
             }
         }
+
+        Invoke("DestroyEffect", 2f);
+    }
+    
+    void DestroyEffect()
+    {
+        Destroy(gameObject);
     }
 
 

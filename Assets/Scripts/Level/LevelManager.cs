@@ -14,12 +14,12 @@ public class LevelManager : MonoBehaviour
 
 
     private int elementGoal;
-    public int ElementGoal { get => elementGoal; set => elementGoal = value; }
+    public int ElementGoal { get => elementGoal; private set => elementGoal = value; }
     private int elementCount;
     public int ElementCount { get => elementCount; private set => elementCount = value; }
     
 
-    [SerializeField] private Slider elementSlider;
+    private Slider elementSlider;
     
 
 
@@ -36,23 +36,29 @@ public class LevelManager : MonoBehaviour
 
     void Start() {
         InitVariables();
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
 
     private void InitVariables()
     {
         playerMovementController = Player.Instance.PlayerMovementController;
+        elementSlider = GameObject.FindGameObjectWithTag("ElementSlider").GetComponent<Slider>();
         elementCount = 0;
-        CurrentLevel = Constants.LEVEL_START_INDEX;
+    }
+
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        InitVariables();
     }
 
 
     public void LoadNextLevel()
     {
         if (SceneManager.sceneCountInBuildSettings >= CurrentLevel) // 433 - 1 = 432 + 1 = 433 BURAI kontrol etmedim
-        {
-            SceneManager.LoadSceneAsync(GetSceneIndex(CurrentLevel + 1), LoadSceneMode.Additive);
-        }
+            if(SceneManager.GetSceneByBuildIndex(GetSceneIndex(CurrentLevel + 1)).isLoaded == false)
+                SceneManager.LoadSceneAsync(GetSceneIndex(CurrentLevel + 1), LoadSceneMode.Additive); 
         else
         {
             Debug.Log("Game Finished");
@@ -70,6 +76,8 @@ public class LevelManager : MonoBehaviour
             int previousLevelIndex = GetSceneIndex(CurrentLevel - 1);
             if (SceneManager.GetSceneByBuildIndex(previousLevelIndex).isLoaded)
                 SceneManager.UnloadSceneAsync(previousLevelIndex);
+            else
+                Debug.Log("Previous Level is not loaded");
         }
     }
 
@@ -77,8 +85,8 @@ public class LevelManager : MonoBehaviour
     public void RestartLevel()
     {
         Debug.Log("Restarting Level");
-        Debug.Log("Current Level: " + CurrentLevel);
         SceneManager.LoadSceneAsync(GetSceneIndex(CurrentLevel));
+        LoadNextLevel();
         InitVariables(); // bunu sonradan ekledim emin deilim 433
     }
 
@@ -126,6 +134,7 @@ public class LevelManager : MonoBehaviour
 
     private void UpdateElementView()
     {
+        
         elementSlider.value = (float) elementCount / (float) elementGoal;
     }
 
@@ -138,5 +147,12 @@ public class LevelManager : MonoBehaviour
     public float GetElementRatio()
     {
         return (float) elementCount / (float) elementGoal;
+    }
+
+    public void SetElementGoal(int goal)
+    {
+        ElementGoal = goal;
+        elementSlider = GameObject.FindGameObjectWithTag("ElementSlider").GetComponent<Slider>();
+        UpdateElementView();
     }
 }
