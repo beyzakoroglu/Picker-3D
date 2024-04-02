@@ -13,6 +13,7 @@ TagManager:
   - Element
   - Parkour
   - ElementSlider
+  - LevelText
   layers:
   - Default
   - TransparentFX

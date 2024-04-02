@@ -6,7 +6,6 @@ public class Slower : MonoBehaviour
     {
         if (other.gameObject.CompareTag(Constants.Tags.ELEMENT_TAG))
          {
-            //Debug.Log("Slower");
             other.gameObject.GetComponent<Element>().Fall();
         }
     }

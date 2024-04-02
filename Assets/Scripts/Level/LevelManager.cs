@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions.Comparers;
 using UnityEngine.SceneManagement;
@@ -9,8 +10,8 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance { get => instance; }
 
 
-    private int currentLevel = Constants.LEVEL_START_INDEX;
-    public int CurrentLevel { get => currentLevel; set => currentLevel = value; }
+    private int currentLevel;
+    public int CurrentLevel { get => currentLevel; set { currentLevel = value; UpdateLevelText(); SaveToPrefs(value);}}
 
 
     private int elementGoal;
@@ -20,6 +21,7 @@ public class LevelManager : MonoBehaviour
     
 
     private Slider elementSlider;
+    private TextMeshProUGUI levelText;
     
 
 
@@ -31,34 +33,37 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
         } 
         instance = this;
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);        
+        CurrentLevel = LoadFromPrefs();
+        
     }
 
     void Start() {
         InitVariables();
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        Debug.Log("LevelMaAWDADAANJFS DJS FBJLOSB FDJCASKMJnager Started");
+        RestartLevel();
     }
 
 
-    private void InitVariables()
+    public void InitVariables()
     {
         playerMovementController = Player.Instance.PlayerMovementController;
         elementSlider = GameObject.FindGameObjectWithTag("ElementSlider").GetComponent<Slider>();
+        levelText = GameObject.FindGameObjectWithTag("LevelText").GetComponent<TextMeshProUGUI>();
         elementCount = 0;
+
+        CurrentLevel = LoadFromPrefs();
+        UpdateLevelText();
     }
 
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        InitVariables();
-    }
+
 
 
     public void LoadNextLevel()
     {
-        if (SceneManager.sceneCountInBuildSettings >= CurrentLevel) // 433 - 1 = 432 + 1 = 433 BURAI kontrol etmedim
-            if(SceneManager.GetSceneByBuildIndex(GetSceneIndex(CurrentLevel + 1)).isLoaded == false)
-                SceneManager.LoadSceneAsync(GetSceneIndex(CurrentLevel + 1), LoadSceneMode.Additive); 
+        if (SceneManager.sceneCountInBuildSettings >= CurrentLevel) 
+            SceneManager.LoadSceneAsync(GetSceneIndex(CurrentLevel + 1), LoadSceneMode.Additive); 
         else
         {
             Debug.Log("Game Finished");
@@ -84,15 +89,24 @@ public class LevelManager : MonoBehaviour
 
     public void RestartLevel()
     {
-        Debug.Log("Restarting Level");
+        // Unload all scenes except the current one
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            Scene scene = SceneManager.GetSceneAt(i);
+                SceneManager.UnloadSceneAsync(scene);
+            
+        }
+
+        // Load the specified scene
         SceneManager.LoadSceneAsync(GetSceneIndex(CurrentLevel));
-        LoadNextLevel();
-        InitVariables(); // bunu sonradan ekledim emin deilim 433
     }
 
-
-
-
+    private void UpdateLevelText()
+    {
+        if (levelText == null)
+            levelText = GameObject.FindGameObjectWithTag("LevelText").GetComponent<TextMeshProUGUI>();
+        levelText.text = CurrentLevel.ToString();
+    }
 
 
     public void LoseLevel()
@@ -102,14 +116,6 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    public LevelStartTrigger GetLevelStartTrigger()
-    {
-        // unless the moment of taptap, there will be only 1 level start trigger
-        // this can cause problem in the future
-        // so you shouldn't use this method in tap tap moment
-        
-        return GameObject.FindObjectOfType<LevelStartTrigger>();
-    }
 
     private int GetSceneIndex(int levelIndex) => levelIndex - 1;
 
@@ -134,7 +140,6 @@ public class LevelManager : MonoBehaviour
 
     private void UpdateElementView()
     {
-        
         elementSlider.value = (float) elementCount / (float) elementGoal;
     }
 
@@ -154,5 +159,15 @@ public class LevelManager : MonoBehaviour
         ElementGoal = goal;
         elementSlider = GameObject.FindGameObjectWithTag("ElementSlider").GetComponent<Slider>();
         UpdateElementView();
+    }
+
+    private void SaveToPrefs(int level)
+    {
+        PlayerPrefs.SetInt("CurrentLevel", level);
+    }
+
+    private int LoadFromPrefs()
+    {
+        return PlayerPrefs.GetInt("CurrentLevel", Constants.LEVEL_START_INDEX);
     }
 }

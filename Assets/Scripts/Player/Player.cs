@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,7 +23,6 @@ public class Player : MonoBehaviour
     {
         if (player != null)
         {
-            Debug.Log("Player already exists");
             Destroy(gameObject);
         }
         
@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
         if (!objectsInsideMagnet.Contains(other.gameObject) && other.gameObject.CompareTag(Constants.Tags.ELEMENT_TAG))
         {
             objectsInsideMagnet.Add(other.gameObject);
+            AudioManager.Instance.PlaySFX(Constants.Paths.COLLECT_SOUND_PATH, .15f);
         }
     }
 
@@ -75,8 +76,9 @@ public class Player : MonoBehaviour
 
     public void RestartPlayer()
     {
+        playerMovementController.Initialize();
         objectsInsideMagnet.Clear();
-        Transform levelStart = LevelManager.Instance.GetLevelStartTrigger().transform;
+        Transform levelStart = GameObject.FindObjectOfType<LevelStartTrigger>().transform;
         transform.position = new Vector3(transform.position.x, transform.position.y, levelStart.position.z);
         PlayerMovementController.SetCanMove(true);
     }

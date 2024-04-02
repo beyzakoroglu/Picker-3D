@@ -23,8 +23,8 @@ public class Element : MonoBehaviour
     private void Explode()
     {
         Destroy(gameObject);
+        AudioManager.Instance.PlaySFX(Constants.Paths.COLLECT_SOUND_PATH, 0.15f);
         GameObject particle = Resources.Load("Particals") as GameObject;
-        Debug.Log(ObjectPoolManager.Instance);
         ObjectPoolManager.SpawnObject(particle, transform.position, Quaternion.identity);
 
     }

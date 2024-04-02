@@ -13,6 +13,10 @@ public static class Constants
 
     public static class Tags{
         public const string ELEMENT_TAG = "Element";
+    }
 
+    public static class Paths{
+        public const string COLLECT_SOUND_PATH = "Sounds/collect";
+        public const string WIN_SOUND_PATH = "Sounds/win";
     }
 }

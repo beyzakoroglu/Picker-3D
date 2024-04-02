@@ -17,6 +17,5 @@ public class CameraMovement : MonoBehaviour
     void Update()
     {
         transform.position = new Vector3(0, player.transform.position.y + offset.y, player.transform.position.z + offset.z);
-        // 433 iki kamera oldugu icin sanirim hata var çöz
     }
 }

@@ -9,7 +9,7 @@ public class PlayerMovementController : MonoBehaviour
     public float ForwardSpeed { get { return forwardSpeed; } set { forwardSpeed = value; } } 
     [SerializeField] private float horizontalSpeed;
     [SerializeField] private float horizontalSpeedLimit;
-    private bool canMove = true;
+    private bool canMove = false;
 
     private Transform _leftlimit;
     private Transform _rightlimit;
@@ -20,9 +20,10 @@ public class PlayerMovementController : MonoBehaviour
 
 
 
-    void Start()
+    public void Initialize()
     {
         rb = GetComponent<Rigidbody>();
+        canMove = true;
         playerInputController =  GetComponent<PlayerInputController>();
         SetCanMove(true);
 
@@ -30,8 +31,6 @@ public class PlayerMovementController : MonoBehaviour
         _rightlimit = transform.Find("rightlimit");
         _leftWall = GameObject.FindWithTag("LeftWall").transform.position; // stays the same
         _rightWall = GameObject.FindWithTag("RightWall").transform.position; // stays the same
-
-        
     }
 
     void Update()

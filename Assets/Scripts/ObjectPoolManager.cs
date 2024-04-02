@@ -31,44 +31,35 @@ public class ObjectPoolManager : MonoBehaviour {
     }
 
     public static GameObject SpawnObject(GameObject objectToSpawn, Vector3 spawnPosition, Quaternion spawnRotation, PoolType poolType = PoolType.ParticleEffect){
-        Debug.Log("0");
+        
         PooledObjectInfo pool = ObjectPools.Find(x => x.LookupString == objectToSpawn.name);
 
-        Debug.Log("1");
         if(pool == null){
             pool = new PooledObjectInfo(){ LookupString = objectToSpawn.name };
         
             ObjectPools.Add(pool);
         }
-        Debug.Log("2");
 
         // Check if there is any inactive object in the pool, if there is take it
         GameObject spawnableObject = pool.inactiveObjects.FirstOrDefault();
 
-            Debug.Log("3");
         if(spawnableObject == null){
             // If there is no inactive object in the pool, create a new one
-            Debug.Log("3.0");
             spawnableObject = Instantiate(objectToSpawn, spawnPosition, spawnRotation);
-            Debug.Log("3.0.1");
             SetParent(spawnableObject, poolType);
         }
         else{
-            Debug.Log("3.1");
             // If there is an inactive object in the pool, take it and set it to active
             spawnableObject.transform.position = spawnPosition;
             spawnableObject.transform.rotation = spawnRotation;
-            Debug.Log("3.2");
             foreach(Transform child in spawnableObject.transform){
                 child.gameObject.SetActive(true);
                 child.transform.position = spawnPosition;
             }
-            Debug.Log("3.3");
             pool.inactiveObjects.Remove(spawnableObject);
             spawnableObject.SetActive(true);
 
         }
-        Debug.Log("4");
         return spawnableObject;
     }
 
@@ -96,13 +87,11 @@ public class ObjectPoolManager : MonoBehaviour {
     }
 
     private static void SetParent(GameObject go, PoolType poolType){
-        Debug.Log("3.0.2");
         if(_particleEffectsHolder == null)
             _particleEffectsHolder = new GameObject("ParticleEffects");
 
         switch(poolType){
             case PoolType.ParticleEffect:
-            Debug.Log("3.0.3");
                 go.transform.SetParent(_particleEffectsHolder.transform);
                 break;
             default:

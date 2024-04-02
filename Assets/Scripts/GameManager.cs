@@ -28,10 +28,8 @@ public class GameManager : MonoBehaviour
     void Start() {
         InitializaGame();
 
-        SceneManager.sceneLoaded += OnSceneLoaded;   // observer pattern abone-izleyici
-                                            //scene yüklendiğinde OnSceneLoaded fonksiyonunu çalıştır
-                                            //bulması daha kolay
-
+        ActivateMainMenu(); 
+        SceneManager.sceneLoaded += OnSceneLoaded;   // observer pattern 
     }
     
 
@@ -49,21 +47,20 @@ public class GameManager : MonoBehaviour
         DeactivateLoseUI();
         DeactivateWinUI();
         DeactivateCongratsUI();
-        ActivateMainMenu();
-        
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         InitializaGame();
-        DeactivateMainMenu();
+        LevelManager.Instance.InitVariables();
+        Player.Instance.RestartPlayer();
     }
 
     void Update(){
     
         if(isMainMenuActive)
         { 
-            if(Input.GetMouseButtonDown(0) && IsMouseOverCanvas(canvas)){ // 433 sağdaki boş
+            if(Input.GetMouseButtonDown(0) && IsMouseOverCanvas(canvas)){
                 DeactivateMainMenu();
             }
         }
@@ -83,6 +80,7 @@ public class GameManager : MonoBehaviour
 
     public void ActivateWinUI()
     {
+        AudioManager.Instance.PlaySFX(Constants.Paths.WIN_SOUND_PATH);
         winUI.SetActive(true);
     }
 
@@ -103,6 +101,7 @@ public class GameManager : MonoBehaviour
 
     public void ActivateCongratsUI()
     {
+        AudioManager.Instance.PlaySFX(Constants.Paths.WIN_SOUND_PATH);
         congratsUI.SetActive(true);
     }
 
@@ -137,11 +136,8 @@ public class GameManager : MonoBehaviour
 
     private bool IsMouseOverCanvas(Canvas canvas)
     {
-        // Canvas'ın RectTransform'ını al
         RectTransform canvasRect = canvas.GetComponent<RectTransform>();
 
-        //return RectTransformUtility.RectangleContainsScreenPoint(canvasRect, Input.mousePosition, null);
-        //433 nedense çalışmıyr şimdilik böle kalsın
         return true;
     }
 }
