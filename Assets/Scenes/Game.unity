@@ -2006,7 +2006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 845c5fea0bdbdca439bb3df4a281efe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardSpeed: 20
+  forwardSpeed: 10
   horizontalSpeed: 50
   horizontalSpeedLimit: 100
 --- !u!114 &3086269011156024823
