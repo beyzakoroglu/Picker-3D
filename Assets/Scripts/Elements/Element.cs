@@ -24,7 +24,8 @@ public class Element : MonoBehaviour
     {
         Destroy(gameObject);
         GameObject particle = Resources.Load("Particals") as GameObject;
-        Instantiate(particle, transform.position, Quaternion.identity);
+        Debug.Log(ObjectPoolManager.Instance);
+        ObjectPoolManager.SpawnObject(particle, transform.position, Quaternion.identity);
 
     }
 

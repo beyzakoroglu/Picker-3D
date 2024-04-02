@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ParticleEffect : MonoBehaviour
 {
-    void Start()
+    void OnEnable()
     {
         foreach (Transform child in transform)
         {
@@ -17,10 +17,10 @@ public class ParticleEffect : MonoBehaviour
 
         Invoke("DestroyEffect", 2f);
     }
-    
+
     void DestroyEffect()
     {
-        Destroy(gameObject);
+        ObjectPoolManager.ReturnObjectToPool(gameObject);
     }
 
 
