@@ -40,7 +40,6 @@ public class LevelManager : MonoBehaviour
 
     void Start() {
         InitVariables();
-        Debug.Log("LevelMaAWDADAANJFS DJS FBJLOSB FDJCASKMJnager Started");
         RestartLevel();
     }
 
